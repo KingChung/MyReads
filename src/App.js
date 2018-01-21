@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './utils/BooksAPI';
 import BooksList from './BooksList';
 import BooksSearch from './BooksSearch';
 import { Route, Link } from 'react-router-dom';
@@ -43,6 +43,7 @@ class App extends Component {
 
     render() {
         const { books } = this.state;
+
         return (
             <div className="app">
                 <Route exact path="/" render={() => (
@@ -55,7 +56,9 @@ class App extends Component {
                                 <div className="bookshelf" key={shelf.key}>
                                     <h2 className="bookshelf-title">{shelf.title}</h2>
                                     <div className="bookshelf-books">
-                                        <BooksList books={books.filter((book) => book.shelf === shelf.key)} onMoveTo={(...args) => this.onMoveTo(...args)}/>
+                                        <BooksList
+                                            books={books.filter((book) => book.shelf === shelf.key)} onMoveTo={(...rest) => this.onMoveTo(...rest)}
+                                        />
                                     </div>
                                 </div>
                             ))}
@@ -66,7 +69,9 @@ class App extends Component {
                     </div>
                 )} />
                 <Route path="/search" render={() => (
-                    <BooksSearch onMoveTo={(...args) => this.onMoveTo(...args)}/>
+                    <BooksSearch
+                        onMoveTo={(...rest) => this.onMoveTo(...rest)}
+                    />
                 )} />
             </div>
         );

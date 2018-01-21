@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BooksList from './BooksList';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './utils/BooksAPI';
 class BooksSearch extends Component {
     state = {
         query: '',
@@ -26,25 +26,25 @@ class BooksSearch extends Component {
         const { query, books } = this.state;
         return (
             <div className="search-books">
-            <div className="search-books-bar">
-                <Link className="close-search" to="/" />
-                <div className="search-books-input-wrapper">
-                    <input
-                        type="text"
-                        placeholder="Search by title or author"
-                        value={query}
-                        onChange={(event) => {
-                            this.searchByQuery(event.target.value)
-                        }}
-                    />
+                <div className="search-books-bar">
+                    <Link className="close-search" to="/" />
+                    <div className="search-books-input-wrapper">
+                        <input
+                            type="text"
+                            placeholder="Search by title or author"
+                            value={query}
+                            onChange={(event) => {
+                                this.searchByQuery(event.target.value)
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="search-books-results">
+                    {books.length ? (
+                        <BooksList books={books} onMoveTo={this.props.onMoveTo}/>
+                    ) : (query && <div style={{textAlign: 'center'}}>Oh! Unfortunately, no results were found</div>)}
                 </div>
             </div>
-            <div className="search-books-results">
-                <BooksList books={books} onMoveTo={(...args) => {
-                    this.props.onMoveTo(...args)
-                }}/>
-            </div>
-          </div>
         );
     }
 }
