@@ -32,11 +32,17 @@ class App extends Component {
     onMoveTo(book, shelf) {
         BooksAPI.update(book, shelf).then((res) => {
             let books = this.state.books;
+            let isExist = false;
             books.forEach((b) => {
                 if(b.id === book.id) {
                     b.shelf = shelf
+                    isExist = true
                 }
             })
+            if(!isExist) {
+                book.shelf = shelf;
+                books.push(book);
+            }
             this.setState({ books: books })
         })
     }
