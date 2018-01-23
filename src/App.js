@@ -2,27 +2,21 @@ import React, { Component } from 'react';
 import * as BooksAPI from './utils/BooksAPI';
 import BooksList from './BooksList';
 import BooksSearch from './BooksSearch';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './App.css'
-
-const shelves = [{
-        title: 'Currently Reading',
-        key: 'currentlyReading'
-    }, {
-        title: 'Want to Read',
-        key: 'wantToRead'
-    }, {
-        title: 'Read',
-        key: 'read'
-    }];
+import BooksShelves from './BooksShelves';
 
 class App extends Component {
     static propTypes = {
         books: PropTypes.array,
     }
-    state = {
-        books: []
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            books: []
+        }
     }
 
     componentDidMount() {
@@ -49,29 +43,14 @@ class App extends Component {
         return (
             <div className="app">
                 <Route exact path="/" render={() => (
-                    <div className="list-books">
-                        <div className="list-books-title">
-                            <h1>MyReads</h1>
-                        </div>
-                        <div className="list-books-content">
-                            {shelves.map((shelf) => (
-                                <div className="bookshelf" key={shelf.key}>
-                                    <h2 className="bookshelf-title">{shelf.title}</h2>
-                                    <div className="bookshelf-books">
-                                        <BooksList
-                                            books={books.filter((book) => book.shelf === shelf.key)} onMoveTo={(...rest) => this.onMoveTo(...rest)}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="open-search">
-                            <Link to="/search" />
-                        </div>
-                    </div>
+                    <BooksShelves
+                        books={books}
+                        onMoveTo={(...rest) => this.onMoveTo(...rest)}
+                    />
                 )} />
                 <Route path="/search" render={() => (
                     <BooksSearch
+                        books={books}
                         onMoveTo={(...rest) => this.onMoveTo(...rest)}
                     />
                 )} />

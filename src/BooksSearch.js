@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import BooksList from './BooksList';
 import * as BooksAPI from './utils/BooksAPI';
 class BooksSearch extends Component {
-    state = {
-        query: '',
-        books: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            query: '',
+            classedBooks: props.books.reduce((acc, cur) => {
+                acc[cur.id] = cur
+                return acc
+            }, {}),
+            books: []
+        }
     }
 
     searchByQuery(query) {
@@ -13,8 +20,14 @@ class BooksSearch extends Component {
         this.setState({ query: term });
         if(term) {
             BooksAPI.search(term).then((books) => {
+                books = Array.isArray(books) ? books : [];
                 this.setState({
-                    books: Array.isArray(books) ? books : []
+                    books: books.map((b) => {
+                        if(this.state.classedBooks[b.id]) {
+                            b.shelf = this.state.classedBooks[b.id].shelf;
+                        }
+                        return b;
+                    })
                 })
             })
         } else {
