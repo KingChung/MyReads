@@ -154,6 +154,9 @@ body, .app {
   background-size: 20px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
+.book-shelf-changer.loading {
+  background-image: url('./icons/loading.svg');
+}
 .book-shelf-changer select {
   width: 100%;
   height: 100%;
@@ -166,6 +169,8 @@ body, .app {
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
+  width: 128px;
+  height: 192px;
 }
 .book-cover-title {
   padding: 20px 10px 0;
