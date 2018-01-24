@@ -27,6 +27,7 @@ To get started developing right away:
     ├── BooksList.js # This is a stateless functional component. Just give it a book array and onMoveTo function, you can use it in anywhere
     ├── BooksSearch.js # The component will search books with Remote API.
     ├── BooksShelves.js # There are three shelf in the component and each shelf render a <BooksList>
+    ├── ShelfSelect.js # The select dropdown. It will change the icon when user sending the request
     ├── utils # Contains all of backend API
     │   ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
     ├── icons
